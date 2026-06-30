@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaitanya Chavan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --charcoal: #1c1b19;
+            --chalk: #f2efe9;
+            --orange: #e8612c;
+            --stone: #8b8579;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--charcoal);
+            color: var(--chalk);
+            line-height: 1.6;
+        }
+
+        h1, h2, .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        #nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            background: transparent;
+            z-index: 100;
+            transition: background-color 0.35s ease, box-shadow 0.35s ease, height 0.35s ease;
+        }
+
+        #nav.scrolled {
+            background: #1c1b19;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+            height: 60px;
+        }
+
+        .nav-inner {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            color: var(--chalk);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 36px;
+        }
+
+        .nav-links a {
+            color: var(--chalk);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.25s ease, border-bottom-color 0.25s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--orange);
+            border-bottom-color: var(--orange);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .nav-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--chalk);
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 24px;
+            background-color: var(--charcoal);
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .eyebrow {
+            color: var(--orange);
+            font-weight: 600;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            line-height: 0.95;
+            margin: 14px 0 20px;
+        }
+
+        .hero p {
+            max-width: 500px;
+            color: var(--stone);
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--orange);
+            color: var(--charcoal);
+            font-weight: 600;
+            padding: 14px 30px;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .btn:hover {
+            background: var(--chalk);
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 100px 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-head {
+            margin-bottom: 48px;
+        }
+
+        .section-head .eyebrow {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .section-head h2 {
+            font-size: 3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .card {
+            border: 1px solid rgba(242, 239, 233, 0.12);
+            padding: 32px 24px;
+            transition: border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        .card:hover {
+            border-color: var(--orange);
+            transform: translateY(-4px);
+        }
+
+        .card .num {
+            color: var(--orange);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--stone);
+            font-size: 0.95rem;
+        }
+
+        footer {
+            border-top: 1px solid rgba(242, 239, 233, 0.12);
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--stone);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 72px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: #1c1b19;
+                gap: 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            .nav-links.open {
+                max-height: 300px;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links a {
+                display: block;
+                padding: 18px 24px;
+                border-bottom: none;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-head h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="nav">
+        <div class="nav-inner">
+            <a href="#" class="logo">TechLab<span>.</span></a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow">IT Student · WCE Sangli</span>
+            <h1>Hi,<br>I'm<br>Chaitanya.</h1>
+            <p>First year IT student at Walchand College of Engineering, Sangli. I started learning web development a few months ago, this is one of my first real projects.</p>
+            <a href="#skills" class="btn">See What I've Learned</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-head">
+            <span class="eyebrow">A bit about me</span>
+            <h2>Still Learning.<br>Always Curious.</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <span class="num">01</span>
+                <h3>Where I'm from</h3>
+                <p>I'm Chaitanya Chavan, currently in my first year of IT at WCE Sangli. I got into web dev because I wanted to actually build things, not just read about them.</p>
+            </div>
+            <div class="card">
+                <span class="num">02</span>
+                <h3>How I learn</h3>
+                <p>Mostly by breaking things. I find a tutorial, try to follow along, then mess around with it until I understand why something works the way it does.</p>
+            </div>
+            <div class="card">
+                <span class="num">03</span>
+                <h3>Right now</h3>
+                <p>This page is part of my internship at SkillCraft Technology. Task 01 - a responsive landing page with an interactive navbar. Ticking it off.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="section-head">
+            <span class="eyebrow">What I know so far</span>
+            <h2>Skills (Work In Progress)</h2>
+        </div>
+        <div class="grid">
+            <div class="card">
+                <span class="num">01</span>
+                <h3>HTML & CSS</h3>
+                <p>The first things I picked up. Started making basic pages and kept tweaking them until they stopped looking terrible.</p>
+            </div>
+            <div class="card">
+                <span class="num">02</span>
+                <h3>JavaScript</h3>
+                <p>Still getting comfortable with it. This project uses event listeners and DOM stuff, wrote it all by hand to actually understand it.</p>
+            </div>
+            <div class="card">
+                <span class="num">03</span>
+                <h3>C & Python</h3>
+                <p>What we study in class. Not web stuff but it helps me think through logic before I start writing code.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>Chaitanya Chavan &nbsp;·&nbsp; IT Student, WCE Sangli &nbsp;·&nbsp; chaitanyachavan2006@gmail.com</p>
+    </footer>
+
+    <script>
+        let nav = document.getElementById('nav');
+        let toggle = document.getElementById('navToggle');
+        let links = document.getElementById('navLinks');
+
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 40) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        toggle.addEventListener('click', function() {
+            links.classList.toggle('open');
+            toggle.classList.toggle('active');
+        });
+
+        let allLinks = links.querySelectorAll('a');
+        for (let i = 0; i < allLinks.length; i++) {
+            allLinks[i].addEventListener('click', function() {
+                links.classList.remove('open');
+                toggle.classList.remove('active');
+            });
+        }
+    </script>
+
+</body>
+</html>
